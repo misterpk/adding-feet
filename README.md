@@ -1,4 +1,4 @@
-# UCSB Vue
+# Miles to km/m/feet calculator
 
 ## Project setup
 ```
