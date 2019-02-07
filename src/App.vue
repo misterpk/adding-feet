@@ -5,7 +5,7 @@
                 <input
                         type="number"
                         class="speed"
-                        @keyup="calculate"
+                        @keyup="calculateKm"
                         @focus="$event.target.select()"
                         v-model="speedMiles"
                 />
@@ -13,11 +13,17 @@
             </div>
             <div>Result: <b>{{ speedKilometers }}km</b></div>
             <div>
-                <h4>Calculate in meters:</h4>
-                <button @click="calculateMeters">Convert Now</button>
+                <h4>Convert:</h4>
+                <button @click="calculate">Convert Now</button>
                 <div>
-                    <input class="speed" v-model="meters"/>
-                    meters
+                    <div class="speed">
+                        <p>
+                            {{ meters }} meters
+                        </p>
+                        <p>
+                            {{ feet }} feet
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,16 +37,24 @@
 			return {
 				speedMiles: 0,
 				speedKilometers: 0,
-				meters: 0
+				meters: 0,
+                feet: 0
 			};
 		},
 		methods: {
 			calculateMeters() {
 				this.meters = Math.round(this.speedKilometers * 1000);
-			},
-			calculate() {
+            },
+            calculateFeet() {
+                this.feet = Math.round(this.speedMiles * 5280);
+            },
+			calculateKm() {
 				this.speedKilometers = (this.speedMiles * 1.60934).toFixed(2);
-			}
+            },
+            calculate() {
+                this.calculateMeters();
+                this.calculateFeet();
+            }
 		}
 	};
 </script>
